@@ -8,12 +8,17 @@ else:
     
 os.chdir(os.path.abspath(loc))
 
-music = os.listdir(loc)
+music = [x for x in os.listdir(loc) if not os.path.isdir(x) and os.path.isfile(x)]
 
 with open("{0}.cue".format(loc[loc.rfind('\\') + 1:]), "w") as f:
     for i in range(len(music)):
         song = music[i]
         end = song[song.rfind(".") + 1:]
+
+        barred = ["txt", "py", "gif", "png", "jpg", "jpeg", "zip", "torrent"]
+
+        if end in barred:
+            continue
 
         translation = {
             "flac":"WAVE",
